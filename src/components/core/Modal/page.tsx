@@ -1,0 +1,20 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { MouseEventHandler, useRef, ReactNode } from "react";
+
+export default function Modal({children} : {children: ReactNode}) {
+    const overlay = useRef(null);
+    const router = useRouter();
+
+    const close: MouseEventHandler = (e) => { 
+        if (e.target === overlay.current) {
+            router.back();
+        }
+    }
+
+    return (
+        <div ref={overlay} className="fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/60" onClick={close}>
+            <div className="w-[35%] h-[80%] absolute top-[10%] left-[31%] p-6 bg-white rounded-lg">{children}</div>
+        </div>
+    )
+}
